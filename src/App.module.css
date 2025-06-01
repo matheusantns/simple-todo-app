@@ -1,0 +1,12 @@
+.todoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 50px;
+  gap: 5px;
+  width: 676px;
+}
+
+.todoContainer__error {
+  margin-top: 8px;
+  color: rgb(211, 72, 72);
+}

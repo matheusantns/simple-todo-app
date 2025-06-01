@@ -1,0 +1,67 @@
+.modal__backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__body {
+  border-radius: 12px;
+  top: 0;
+  left: 0;
+  width: 50%;
+  background-color: #242424;
+  padding: 20px;
+}
+
+.modal__header {
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal__close {
+  all: unset;
+  cursor: pointer;
+}
+
+.modal__input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.modal__error-message {
+  color: rgb(211, 72, 72);
+}
+
+.modal__actionButtons {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+
+.modal__actionButtons button {
+  all: unset;
+  border-radius: 10px;
+  background-color: #3b3b3b;
+  margin-top: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button.modal__actionButtons--confirm {
+  background-color: #15b55a;
+  color: #242424;
+}

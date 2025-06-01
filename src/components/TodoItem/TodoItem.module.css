@@ -1,0 +1,52 @@
+.todoItem {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc(50% - 5px);
+  border: 1px solid #6d6d6d;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.todoItem__checked {
+  border: 1px solid #348b4e;
+  background-color: #213025;
+}
+
+.todoItem__actions {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoItem__actions-button {
+  all: unset;
+  border: 0;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.todoItem__actions-done {
+  all: unset;
+  cursor: pointer;
+  border: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.todoItem__actions-done span {
+  font-size: 14px;
+}
+
+.todoItem__actions-button:hover,
+.todoItem__actions-done:hover {
+  background-color: #0000003f;
+}
+
+.todoItem__edit-delete {
+  display: flex;
+  gap: 5px;
+}
