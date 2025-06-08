@@ -1,56 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import styles from './App.module.css';
-import AddTodoInput from './components/AddTodoInput/AddTodoInput';
+import AddTodoInput from './components/AddTodoForm/AddTodoForm';
 import MainContainer from './components/MainContainer/MainContainer';
 import type { TodoItemType } from './types/todo';
 import TodoItem from './components/TodoItem/TodoItem';
 import { createPortal } from 'react-dom';
 import EditTodoModal from './components/EditTodoModal/EditTodoModal';
-import type { ValidateError } from './utils/validateInput';
+import { useTodoContext } from './components/hooks/useTodoContext';
+import { useTodoValidation } from './components/hooks/useTodoValidation';
+import useLocalStorage from './components/hooks/useLocalStorage';
 
 function App() {
-  const [todos, setTodos] = useState<TodoItemType[]>(() => {
-    const saved = localStorage.getItem('todos');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { state } = useTodoContext();
   const [modalInfo, setModalInfo] = useState<TodoItemType | null>(null);
-  const [error, setError] = useState<ValidateError>({} as ValidateError);
+  const { error, validate } = useTodoValidation(state.todos);
+  useLocalStorage<TodoItemType[]>('todos', state.todos);
 
-  useEffect(() => {
-    if (todos.length === 0) {
-      return;
-    }
-
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  const renderedTodos = useMemo(() => {
+    return state.todos.map((item, index) => (
+      <TodoItem key={`${item.title}-${index}`} todo={item} setModalInfo={setModalInfo} />
+    ));
+  }, [state.todos]);
 
   return (
     <>
       <MainContainer>
-        <AddTodoInput todos={todos} setTodos={setTodos} setError={setError} />
+        <h1 id={styles.mainTitle}>Simple To-do App</h1>
+        <AddTodoInput validate={validate} />
         {error && <span className={styles.todoContainer__error}>{error.message}</span>}
-        <section className={styles.todoContainer}>
-          {todos.map((item, index) => (
-            <TodoItem
-              key={`${item.title}-${index}`}
-              todo={item}
-              setTodos={setTodos}
-              setModalInfo={setModalInfo}
-            />
-          ))}
-        </section>
+        <section className={styles.todoContainer}>{renderedTodos}</section>
       </MainContainer>
       {modalInfo &&
-        createPortal(
-          <EditTodoModal
-            todos={todos}
-            todo={modalInfo}
-            setTodos={setTodos}
-            setModalInfo={setModalInfo}
-            setError={setError}
-          />,
-          document.body
-        )}
+        createPortal(<EditTodoModal todo={modalInfo} setModalInfo={setModalInfo} />, document.body)}
     </>
   );
 }

@@ -10,3 +10,9 @@
   margin-top: 8px;
   color: rgb(211, 72, 72);
 }
+
+#mainTitle {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
